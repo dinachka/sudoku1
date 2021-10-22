@@ -4,7 +4,7 @@
 // your solver has tried to solve it.
 // How you represent your board is up to you!
 function solve(boardString) {
-  
+
 
 }
 
@@ -25,77 +25,6 @@ function isSolved(board) {
 // form `solve` returns.
 function prettyBoard(board) {
 
-}
-
-//function make array from little cube 3x3
-// num is number of cube from 0 - 8
-function arrFromCube(cube, num) {
-  let newArr = [];
-  if (num === 0) {
-    for (let i = 0; i < 3; i += 1) {
-      for (let j = 0; j < 3; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  if (num === 1) {
-    for (let i = 0; i < 3; i += 1) {
-      for (let j = 3; j < 6; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  if (num === 2) {
-    for (let i = 0; i < 3; i += 1) {
-      for (let j = 6; j < 9; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  if (num === 3) {
-    for (let i = 3; i < 6; i += 1) {
-      for (let j = 0; j < 3; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  if (num === 4) {
-    for (let i = 3; i < 6; i += 1) {
-      for (let j = 3; j < 6; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  if (num === 5) {
-    for (let i = 3; i < 6; i += 1) {
-      for (let j = 6; j < 9; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  if (num === 6) {
-    for (let i = 6; i < 9; i += 1) {
-      for (let j = 0; j < 1; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  if (num === 7) {
-    for (let i = 6; i < 9; i += 1) {
-      for (let j = 3; j < 6; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  if (num === 8) {
-    for (let i = 6; i < 9; i += 1) {
-      for (let j = 6; j < 9; j += 1) {
-        newArr.push(cube[i][j]);
-      }
-    }
-  }
-  // console.log(newArr);
-  return newArr;
 }
 
 
