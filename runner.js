@@ -9,7 +9,7 @@ const content = fs.readFileSync(
 );
 function sudokuParse(content, puzzleNumber = 0) {
   let puzzle = content.split('\n')[puzzleNumber];
-  console.log(puzzle);
+  // console.log(puzzle);
   return puzzle;
 }
 
@@ -21,13 +21,17 @@ function readAndSolve(err, data) {
 
   let solvedPuzzle = sudoku.solve(puzzle);
   if (sudoku.isSolved(solvedPuzzle)) {
-    console.log("The board was solved!");
-    console.log(sudoku.prettyBoard(solvedPuzzle));
+    // console.log("The board was solved!");
+    // console.log(sudoku.prettyBoard(solvedPuzzle));
   }
   else {
-    console.log("The board wasn't solved :(");
+    // console.log("The board wasn't solved :(");
   }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+// Function create matrix (9X9 numbers), when null is empty cell
 
 let arrLines = sudokuParse(content)
 function lines2(arrLines) {
@@ -55,14 +59,246 @@ console.table(lines2(arrLines))
 
 function getColomn(array, colomn) {
   let resultArray = []
-  
+
   for (let i = 0; i < array.length; i++) {
-      resultArray.push(array[i][colomn])
-  }
-  
-  return resultArray;
+    resultArray.push(array[i][colomn])
   }
 
+  return resultArray;
+}
+
+//function make array from little cube 3x3
+// num is number of cube from 0 - 8
+function arrFromCube(cube, num) {
+  let newArr = [];
+  if (num === 0) {
+    for (let i = 0; i < 3; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  if (num === 1) {
+    for (let i = 0; i < 3; i += 1) {
+      for (let j = 3; j < 6; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  if (num === 2) {
+    for (let i = 0; i < 3; i += 1) {
+      for (let j = 6; j < 9; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  if (num === 3) {
+    for (let i = 3; i < 6; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  if (num === 4) {
+    for (let i = 3; i < 6; i += 1) {
+      for (let j = 3; j < 6; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  if (num === 5) {
+    for (let i = 3; i < 6; i += 1) {
+      for (let j = 6; j < 9; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  if (num === 6) {
+    for (let i = 6; i < 9; i += 1) {
+      for (let j = 0; j < 1; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  if (num === 7) {
+    for (let i = 6; i < 9; i += 1) {
+      for (let j = 3; j < 6; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  if (num === 8) {
+    for (let i = 6; i < 9; i += 1) {
+      for (let j = 6; j < 9; j += 1) {
+        newArr.push(cube[i][j]);
+      }
+    }
+  }
+  return newArr;
+}
+
+let cube = lines2(arrLines);
+function fillSudoku(cube) {
+  const arr_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, i);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  for (let i = 0; i < 3; i++) {
+    for (let j = 3; j < 6; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, 1);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  for (let i = 0; i < 3; i++) {
+    for (let j = 6; j < 9; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, 2);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  for (let i = 3; i < 6; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, 3);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  for (let i = 3; i < 6; i++) {
+    for (let j = 3; j < 6; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, 4);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  for (let i = 3; i < 6; i++) {
+    for (let j = 6; j < 9; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, 5);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  for (let i = 6; i < 9; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, 6);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  for (let i = 6; i < 9; i++) {
+    for (let j = 3; j < 6; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, 7);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  for (let i = 6; i < 9; i++) {
+    for (let j = 6; j < 9; j++) {
+      if (cube[i][j] === 0) {
+        let arr_cube = arrFromCube(cube, 8);
+        let arr_col = getColomn(cube, j);
+        let arr_str = cube[i];
+        for (let k = 0; k < arr_numbers.length; k++) {
+          if (!arr_cube.includes(arr_numbers[k]) && !arr_col.includes(arr_numbers[k]) && !arr_str.includes(arr_numbers[k])) {
+            cube[i][j] = arr_numbers[k];
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  return cube;
+
+}
+console.table(fillSudoku(cube));
+
+/////////////////////////////////////////////////////////////////
 // Reads file and sends data from it to the readAndSolve function.
 fs.readFile(
   './sudoku-puzzles.txt',
