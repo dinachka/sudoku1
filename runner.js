@@ -32,6 +32,19 @@ function readAndSolve(err, data) {
   }
 }
 
+
+//функция, возвращает массив колонки 
+
+function getColomn(array, colomn) {
+  let resultArray = []
+  
+  for (let i = 0; i < array.length; i++) {
+      resultArray.push(array[i][colomn])
+  }
+  
+  return resultArray;
+  }
+
 // Reads file and sends data from it to the readAndSolve function.
 fs.readFile(
   './sudoku-puzzles.txt',
